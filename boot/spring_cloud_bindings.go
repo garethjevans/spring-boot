@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"errors"
 
 	"github.com/buildpacks/libcnb"
 	"github.com/paketo-buildpacks/libpak"
@@ -68,7 +69,10 @@ func (s SpringCloudBindings) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 	}
 
 	target := filepath.Join(s.SpringBootLib, filepath.Base(file))
-	if err := os.Symlink(file, target); err != nil {
+
+	if checkFileExists(target) {
+		s.Logger.Bodyf("Spring-cloud bindings already exist.")
+	} else if err := os.Symlink(file, target); err != nil {
 		return libcnb.Layer{}, fmt.Errorf("unable to link %s to %s\n%w", file, target, err)
 	}
 
@@ -77,4 +81,12 @@ func (s SpringCloudBindings) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 
 func (s SpringCloudBindings) Name() string {
 	return s.LayerContributor.LayerName()
+}
+
+func checkFileExists (path string) bool {
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		return false
+	}
+
+	return true
 }
