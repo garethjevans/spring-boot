@@ -3,7 +3,7 @@ name: Create Package
     release:
         types:
             - published
-    workflow: {}
+    workflow_dispatch: {}
 
 env:
   REGISTRY: ghcr.io
