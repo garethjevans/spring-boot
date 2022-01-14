@@ -16,8 +16,8 @@ api = "0.7"
 
 [buildpack]
   description = "A Cloud Native Buildpack that contributes Spring Boot dependency information and slices an application into multiple layers"
-  homepage = "https://github.com/paketo-buildpacks/spring-boot"
-  id = "paketo-buildpacks/spring-boot"
+  homepage = "https://github.com/garethjevans/spring-boot"
+  id = "garethjevans/spring-boot"
   keywords = ["java", "spring", "spring-boot"]
   name = "Paketo Spring Boot Buildpack"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/vnd.syft+json"]
